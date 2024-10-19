@@ -83,6 +83,7 @@ pipeline {
                     chmod +x ./kubectl
                     mv ./kubectl /usr/local/bin/kubectl
                 '''
+                }
             }
         }
     stage('get kubeconfig') {
