@@ -75,6 +75,16 @@ pipeline {
         sh 'terraform apply -auto-approve'
       }
     }
+        stages {
+        stage('Install kubectl') {
+            steps {
+                sh '''
+                    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+                    chmod +x ./kubectl
+                    mv ./kubectl /usr/local/bin/kubectl
+                '''
+            }
+        }
     stage('get kubeconfig') {
       steps {
         sh 'aws eks update-kubeconfig --region us-east-1 --name test-cluster'
